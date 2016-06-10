@@ -1,0 +1,5 @@
+{
+    "token" : "bot's token",
+    "admin" : "admin id number",
+    "server" : "server id the bot will run on"
+}
