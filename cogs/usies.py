@@ -53,7 +53,7 @@ class UserDescription:
             await self.bot.say("A lot of people are.")
         elif ctx.message.mentions:
             """ Get @mentioned users first """
-            usy = ctx.message.mentions[0].name
+            usy = ctx.message.mentions[0].display_name
             if ctx.message.mentions[0].id in self.bot.usies.keys():
                 description = self.bot.usies[ctx.message.mentions[0].id]
             await self.bot.say(usy + " is " + description)
@@ -62,6 +62,9 @@ class UserDescription:
             matches = []
             for as_member in self.bot.as_members:
                 if usyname.encode('ascii', 'ignore').lower() in \
+                as_member.display_name.encode('ascii', 'ignore').lower():
+                    matches.append(as_member)
+                elif usyname.encode('ascii', 'ignore').lower() in \
                 as_member.name.encode('ascii', 'ignore').lower():
                     matches.append(as_member)
             """ Then return the matches' descriptions, if available """
@@ -71,7 +74,7 @@ class UserDescription:
             elif len(matches) > 1:
                 await self.bot.say("I found more than one.")
                 for as_member in matches:
-                    usy = as_member.name
+                    usy = as_member.display_name
                     if as_member.id in self.bot.usies.keys():
                         result = self.bot.usies[as_member.id]
                     else:
@@ -79,7 +82,7 @@ class UserDescription:
                     await self.bot.say(usy + " is " + result)
             elif len(matches) > 0:
                 as_member = matches[0]
-                usy = as_member.name
+                usy = as_member.display_name
                 if as_member.id in self.bot.usies.keys():
                     result = self.bot.usies[as_member.id]
                 else:
